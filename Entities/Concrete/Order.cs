@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace Entities.Concrete
 {
-    public class Customer:IEntity
+    public class Order:IEntity
     {
+        public int OrderId { get; set; }
         public int CustomerId { get; set; }
-        public string ContactName { get; set; }
-        public string CompanyName { get; set; }
-        public string City { get; set; }
+        public DateTime OrderDate { get; set; }
     }
 }
