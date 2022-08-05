@@ -8,7 +8,7 @@ namespace Core.Utilities.Results
 {
     public class Result : IResult
     {
-        public Result(bool success,string message):this(success)//alttaki succcesi de çalıştırır
+        public Result(bool success,string message):this(success) //alttaki succcesi de çalıştırır
         {
             Success = success;
         }

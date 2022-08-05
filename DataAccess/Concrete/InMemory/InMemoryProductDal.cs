@@ -17,11 +17,11 @@ namespace DataAccess.Concrete.InMemory
         {
             //Bir veri tabanından geliyormuş gibi veri oluşturdu
             _products = new List<Product> { 
-                new Product{ProductId=1, CategoryId=1, ProductName="Direnc", UnitPrice=15},
-                new Product{ProductId=2, CategoryId=1, ProductName="Arduino", UnitPrice=15},
-                new Product{ProductId=3, CategoryId=2, ProductName="Kapasitor", UnitPrice=15},
-                new Product{ProductId=4, CategoryId=2, ProductName="Board", UnitPrice=15},
-                new Product{ProductId=5, CategoryId=3, ProductName="Ampul", UnitPrice=15}
+                new Product{ProductId=1, CategoryId=1, ProductName="Direnc"},
+                new Product{ProductId=2, CategoryId=1, ProductName="Arduino"},
+                new Product{ProductId=3, CategoryId=2, ProductName="Kapasitor"},
+                new Product{ProductId=4, CategoryId=2, ProductName="Board"},
+                new Product{ProductId=5, CategoryId=3, ProductName="Ampul"}
             };
         }
         public void Add(Product product)

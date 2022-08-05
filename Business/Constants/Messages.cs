@@ -10,7 +10,8 @@ namespace Business.Constants
     public static class Messages
     {
         public static string ProductAdded = "Ürün eklendi";
-        internal static List<Product> MaintenanceTime;
-        internal static string ProductListed;
+        public static string MaintenanceTime = "Sistem bakımda" ;
+        public static string ProductListed = "Ürünler listelendi";
+        public static string CategoryListed = "Kategoriler listelendi";
     }
 }
