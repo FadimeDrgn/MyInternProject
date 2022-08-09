@@ -33,8 +33,10 @@ namespace WebAPI
             //IoC Container aþaðýdaki sýralananlar
             //Autofac, Ninject, CastleWindsor, StructureMap, LightInject, DryInject
             services.AddControllers();
-            services.AddSingleton<IProductService, ProductManager > ();
-            services.AddSingleton<IProductDal, EfProductDal>();
+            //services.AddSingleton<IProductService, ProductManager > ();
+            //services.AddSingleton<IProductDal, EfProductDal>();
+            //services.AddSingleton<ICategoryService, CategoryManager>();
+            //services.AddSingleton<ICategoryDal, EfCategoryDal>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebAPI", Version = "v1" });
