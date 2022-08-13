@@ -42,9 +42,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Category>>(_categoryDal.GetAll(),Messages.CategoryListed);
         }
 
-        public IDataResult<Category> GetByCategoryId(int categoryId)
+        public IDataResult<Category> GetById(int id)
         {
-            return new SuccessDataResult<Category>(_categoryDal.Get(c => c.CategoryId == categoryId));
+            return new SuccessDataResult<Category>(_categoryDal.Get(c => c.CategoryId == id));
         }
 
         

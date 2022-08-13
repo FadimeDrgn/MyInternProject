@@ -1,4 +1,5 @@
-﻿using Core.Utilities.Results;
+﻿using Core.Utilities.Business;
+using Core.Utilities.Results;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
@@ -9,14 +10,10 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface IProductService
+    public interface IProductService : IEntityServiceBase<Product>
     {
-        IDataResult<List<Product>> GetAll();
-        IDataResult<List<Product>> GetAllByCategoryId(int id);
         IDataResult<List<ProductDetailDto>> GetProductDetails();
-        IDataResult<Product> GetById(int productId); //tek bir ürünün detayı için
-        IResult Add(Product product);
-        IResult Update(Product product);
-        IResult Delete(Product product);
+        //tek bir ürünün detayı için
+        IDataResult<List<Product>> GetAllByCategoryId(int id);
     }
 }

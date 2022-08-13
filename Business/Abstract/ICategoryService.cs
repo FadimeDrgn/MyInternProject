@@ -1,4 +1,5 @@
-﻿using Core.Utilities.Results;
+﻿using Core.Utilities.Business;
+using Core.Utilities.Results;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,12 +9,8 @@ using System.Threading.Tasks;
 
 namespace Business.Abstract
 {
-    public interface ICategoryService
+    public interface ICategoryService:IEntityServiceBase<Category>
     {
-        IDataResult<List<Category>> GetAll();
-        IDataResult<Category> GetByCategoryId(int categoryId);
-        IResult Add(Category category);
-        IResult Update(Category category);
-        IResult Delete(Category category);
+        
     }
 }
