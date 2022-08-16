@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Core.Utilities.Security.Encryption
 {
-    public class SigningCredentialHelper
+    public class SigningCredentialsHelper
     {
         public static SigningCredentials CreateSigningCredentials(SecurityKey securityKey)
         {
-            //algoritma olarak hmacsha512, anahtar olarakta ssecurityKey kullan
+            //algoritma olarak hmacsha512, anahtar olarakta securityKey kullan
             return new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha512);
         }
     }
