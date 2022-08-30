@@ -12,9 +12,9 @@ namespace Business.Abstract
 {
     public interface IProductImageService 
     {
-        IResult Add(IFormFile formFile, ProductImage productImage);
+        IResult Add(ProductImage productImage, IFormFile formFile);
         IResult Delete(ProductImage productImage);
-        IResult Update(IFormFile file, ProductImage productImage);
+        IResult Update(ProductImage productImage, IFormFile file);
 
         IDataResult<List<ProductImage>> GetAll();
         IDataResult<ProductImage> GetById(int Id);

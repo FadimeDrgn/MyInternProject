@@ -12,5 +12,12 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfProductImageDal : EfEntityRepositoryBase<ProductImage, MyDbContext>, IProductImageDal
     {
+        public bool IsExist(int id)
+        {
+            using (MyDbContext context = new MyDbContext())
+            {
+                return context.ProductImages.Any(p => p.ProductImageId == id);
+            }
+        }
     }
 }

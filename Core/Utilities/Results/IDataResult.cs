@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Utilities.Results
 {
-    public interface IDataResult<T>:IResult//Mesaj ve işlem sonucunu bu zaten döndürüyor
+    public interface IDataResult< out T>:IResult//Mesaj ve işlem sonucunu bu zaten döndürüyor
     {
         T Data { get; }
     }

@@ -12,5 +12,8 @@ namespace Entities.DTOs
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string CategoryName { get; set; }
+        public decimal UnitPrice { get; set; }
+        public string Description { get; set; }
+        public List<string> Images { get; set; }
     }
 }

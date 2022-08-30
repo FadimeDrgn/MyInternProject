@@ -30,5 +30,10 @@ namespace Business.Constants
         public static string UserAlreadyExists = "Kullanıcı mevcut";
         public static string AccessTokenCreated = "AccessToken oluşturuldu";
         public static string UserAdded = "Kullanıcı eklendi";
+
+
+        public static string CheckProductForDeleteImageError = "Bu id'ye ait resim bulunamadı" ;
+        public static string CheckProductImageLımıtError = "Bir ürünün en fazla beş resmi olabilir";
+        public static string ProductImageUpdated = "Ürün resmi güncellendi";
     }
 }

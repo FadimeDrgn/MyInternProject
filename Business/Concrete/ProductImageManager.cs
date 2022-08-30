@@ -1,7 +1,10 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
+using Core.Utilities.FileHelpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -14,116 +17,116 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    //public class ProductImageManager : IProductImageService
-    //{
-    //    IProductImageDal _productImageDal;
+    public class ProductImageManager : IProductImageService
+    {
+        IProductImageDal _productImageDal;
 
-    //    public ProductImageManager(IProductImageDal productImageDal)
-    //    {
-    //        _productImageDal = productImageDal;
-    //    }
+        public ProductImageManager(IProductImageDal productImageDal)
+        {
+            _productImageDal = productImageDal;
+        }
 
-    //    [ValidationAspect(typeof(CarImageValidator))]
-    //    public IResult Add(ProductImage productImage, IFormFile formFile)
-    //    {
-    //        IResult result = BusinessRules.Run(CheckCarImageLımıt(carImage.CarId));
+        [ValidationAspect(typeof(ProductImageValidator))]
+        public IResult Add(ProductImage productImage, IFormFile formFile)
+        {
+            IResult result = BusinessRules.Run(CheckProductImageLımıt(productImage.ProductId));
 
-    //        if (result != null)
-    //        {
-    //            return result;
-    //        }
+            if (result != null)
+            {
+                return result;
+            }
 
-    //        var result1 = CarImagesFileHelper.Add(formFile);
-    //        carImage.ImagePath = result1;
-    //        carImage.Date = DateTime.Now;
+            var result1 = FileHelper.Add(formFile);
+            productImage.ImagePath = result1;
+            productImage.Date = DateTime.Now;
 
-    //        _carImageDal.Add(carImage);
-    //        return new SuccessResult("Araba resmi eklendi.");
-    //    }
+            _productImageDal.Add(productImage);
+            return new SuccessResult("Ürün resmi eklendi.");
+        }
 
-    //    public IResult Delete(ProductImage productImage)
-    //    {
-    //        IResult result = BusinessRules.Run(CheckForDeleteImage(carImage.Id));
-    //        if (result != null)
-    //        {
-    //            return result;
-    //        }
+        public IResult Delete(ProductImage productImage)
+        {
+            IResult result = BusinessRules.Run(CheckForDeleteImage(productImage.ProductImageId));
+            if (result != null)
+            {
+                return result;
+            }
 
-    //        _carImageDal.Delete(carImage);
-    //        return new SuccessResult("Araba resmi silindi.");
-    //    }
+            _productImageDal.Delete(productImage);
+            return new SuccessResult("Ürün resmi silindi.");
+        }
 
-    //    public IDataResult<List<ProductImage>> GetAll()
-    //    {
+        public IDataResult<List<ProductImage>> GetAll()
+        {
 
-    //        return new SuccessDataResult<List<ProductImage>>(_carImageDal.GetAll());
-    //    }
+            return new SuccessDataResult<List<ProductImage>>(_productImageDal.GetAll());
+        }
 
-    //    public IDataResult<List<ProductImage>> GetByCarId(int carId)
-    //    {
-    //        return new SuccessDataResult<List<ProductImage>>(CheckIfAnyCarImageExists(carId));
-    //    }
+        public IDataResult<List<ProductImage>> GetByProductId(int productId)
+        {
+            return new SuccessDataResult<List<ProductImage>>(CheckIfAnyProductImageExists(productId));
+        }
 
-    //    public IDataResult<ProductImage> GetById(int Id)
-    //    {
-    //        return new SuccessDataResult<ProductImage>(_carImageDal.Get(c => c.Id == Id));
-    //    }
+        public IDataResult<ProductImage> GetById(int Id)
+        {
+            return new SuccessDataResult<ProductImage>(_productImageDal.Get(p => p.ProductImageId == Id));
+        }
 
-    //    [TransactionScopeAspect]
-    //    public IResult TransactionalOperation(ProductImage productImage, IFormFile file)
-    //    {
-    //        Add(carImage, file);
-    //        Update(carImage, file);
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(ProductImage productImage, IFormFile file)
+        {
+            Add(productImage, file);
+            Update(productImage, file);
 
-    //        return new SuccessResult(Messages.CarImageUpdated);
-    //    }
+            return new SuccessResult(Messages.ProductImageUpdated);
+        }
 
-    //    public IResult Update(ProductImage productImage, IFormFile formFile)
-    //    {
-    //        IResult result = BusinessRules.Run(CheckCarImageLımıt(carImage.CarId));
+        public IResult Update(ProductImage productImage, IFormFile formFile)
+        {
+            IResult result = BusinessRules.Run(CheckProductImageLımıt(productImage.ProductId));
 
-    //        if (result != null)
-    //        {
-    //            return result;
-    //        }
+            if (result != null)
+            {
+                return result;
+            }
 
-    //        carImage.Date = DateTime.Now;
-    //        _carImageDal.Update(carImage);
-    //        return new SuccessResult("Araba resmi güncellendi.");
-    //    }
+            productImage.Date = DateTime.Now;
+            _productImageDal.Update(productImage);
+            return new SuccessResult("Ürün resmi güncellendi.");
+        }
 
-    //    private IResult CheckCarImageLımıt(int carId)
-    //    {
-    //        var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
-    //        if (result > 5)
-    //        {
-    //            return new ErrorResult(Messages.CheckCarImageLımıtError);
-    //        }
-    //        return new SuccessResult();
-    //    }
+        private IResult CheckProductImageLımıt(int productId)
+        {
+            var result = _productImageDal.GetAll(p => p.ProductId == productId).Count;
+            if (result > 5)
+            {
+                return new ErrorResult(Messages.CheckProductImageLımıtError);
+            }
+            return new SuccessResult();
+        }
 
-    //    private IResult CheckForDeleteImage(int id)
-    //    {
-    //        bool result = _carImageDal.GetAll(c => c.Id == id).Any();
-    //        if (result)
-    //        {
-    //            return new ErrorResult(Messages.CheckCarForDeleteImageError);
-    //        }
-    //        return new SuccessResult();
-    //    }
+        private IResult CheckForDeleteImage(int id)
+        {
+            bool result = _productImageDal.GetAll(p => p.ProductImageId == id).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.CheckProductForDeleteImageError);
+            }
+            return new SuccessResult();
+        }
 
-    //    private List<ProductImage> CheckIfAnyCarImageExists(int productId)
-    //    {
-    //        string path = @"\images\default.jpg";
-    //        var result = _carImageDal.GetAll(c => c.CarId == carId).Any();
+        private List<ProductImage> CheckIfAnyProductImageExists(int productId)
+        {
+            string path = @"\images\default.jpg";
+            var result = _productImageDal.GetAll(p => p.ProductId == productId).Any();
 
-    //        if (result)
-    //        {
-    //            return _carImageDal.GetAll(p => p.CarId == carId);
-    //        }
+            if (result)
+            {
+                return _productImageDal.GetAll(p => p.ProductId == productId);
+            }
 
-    //        return new List<ProductImage> { new ProductImage { CarId = carId, ImagePath = path, Date = DateTime.Now } };
-    //    }
+            return new List<ProductImage> { new ProductImage { ProductId = productId, ImagePath = path, Date = DateTime.Now } };
+        }
 
-    //}
+    }
 }
